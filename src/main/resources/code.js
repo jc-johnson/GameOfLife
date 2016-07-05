@@ -2,7 +2,7 @@ var rows = 75;
 var cols = 75;
 var playing = false;
 var timer;
-var reproductionTime = 100;
+var reproductionTime = 120;
 
 // 2d arrays will act as data models for table of cells
 // stores data about each cell
@@ -205,6 +205,7 @@ function computeNextGen() {
 function applyRules(row, col) {
     var numNeighbors = countNeighbors(row, col);
     if (grid[row][col] == 1) {
+        // nextGrid[row][col]  // adjusting final rules live cell stays alive in the next round
         if (numNeighbors < 2) {
             nextGrid[row][col] = 0;
         } else if (numNeighbors == 2 || numNeighbors == 3) {
@@ -216,6 +217,9 @@ function applyRules(row, col) {
         if (numNeighbors == 3) {
             nextGrid[row][col] = 1;
         }
+        /*if (numNeighbors == 2) {
+            nextGrid[row][col] = 1; // again adjusting final rules
+        }*/
     }
 }
 
