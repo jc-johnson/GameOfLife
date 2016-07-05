@@ -146,11 +146,16 @@ function clearButtonHandler() {
     startButton.innerHTML = "start";
     clearTimeout(timer);
 
-    // incrementally kill all live sells and reset
+    // kill all live sells and reset
     var cellsList = document.getElementsByClassName("live");
+    var cells = [];
     for (var i = 0; i < cellsList.length; i++) {
-        cellsList[i].setAttribute("class", "dead");
+        cells.push(cellsList[i]);
     }
+    for (var i = 0; i < cells.length; i++) {
+        cells[i].setAttribute("class", "dead");
+    }
+
     resetGrids();
 }
 
