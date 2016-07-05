@@ -1,5 +1,5 @@
-var rows = 24;
-var cols = 24;
+var rows = 75;
+var cols = 75;
 var playing = false;
 var timer;
 var reproductionTime = 100;
@@ -117,6 +117,25 @@ function setupControlButtons() {
 
     var clearButton = document.getElementById("clear");
     clearButton.onclick = clearButtonHandler;
+
+    // button to set random beginning state
+    var randomButton = document.getElementById("random");
+    randomButton.onclick = randomButtonHandler;
+}
+
+function randomButtonHandler() {
+    if (playing) return;
+    clearButtonHandler();
+    for (var i = 0; i < rows; i++) {
+        for (var j = 0; j < cols; j++) {
+            var isLive = Math.round(Math.random());
+            if (isLive == 1) {
+                var cell = document.getElementById(i + "_" + j);
+                cell.setAttribute("class", "live");
+                grid[i][j] = 1;
+            }
+        }
+    }
 }
 
 // clear the grid
@@ -125,6 +144,14 @@ function clearButtonHandler() {
     playing = false;
     var startButton = document.getElementById("start");
     startButton.innerHTML = "start";
+    clearTimeout(timer);
+
+    // incrementally kill all live sells and reset
+    var cellsList = document.getElementsByClassName("live");
+    for (var i = 0; i < cellsList.length; i++) {
+        cellsList[i].setAttribute("class", "dead");
+    }
+    resetGrids();
 }
 
 // start/pause/continue the game
