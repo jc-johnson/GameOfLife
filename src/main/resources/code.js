@@ -42,7 +42,8 @@ function copyAndResetGrid() {
 function initialize() {
     createTable();
     initializeGrids();
-    resetGrids(); // each cell initialized in the model as empty
+	// each cell initialized in the model as empty
+    resetGrids();
     setupControlButtons();
 }
 
@@ -66,10 +67,12 @@ function createTable() {
             // give each cell an id to access it later
             cell.setAttribute("id", i + "_" + j);
             cell.setAttribute("class", "dead");
-            cell.onclick = cellClickHandler; // execute logic if cell is clicked
+			// execute logic if cell is clicked
+            cell.onclick = cellClickHandler;
             tr.appendChild(cell);
         }
-        table.appendChild(tr); // add the row element to table
+		// add the row element to table
+        table.appendChild(tr);
     }
     gridContainer.appendChild(table);
 }
@@ -86,10 +89,12 @@ function cellClickHandler() {
     // if the object is live, make it dead; and vice versa
     if (classes.indexOf("live") > -1) {
         this.setAttribute("class", "dead");
-        grid[row][col] = 0; // updates cell value in model
+        // updates cell value in model
+        grid[row][col] = 0;
     } else {
         this.setAttribute("class", "live");
-        grid[row][col] = 1; // updates cell value in model
+        // updates cell value in model
+        grid[row][col] = 1;
     }
 }
 
@@ -101,6 +106,7 @@ function updateView() {
                 cell.setAttribute("class", "dead");
             } else {
                 cell.setAttribute("class", "live");
+            }
         }
     }
 }
@@ -127,6 +133,7 @@ function startButtonHandler() {
         console.log("Pause the game");
         playing = false;
         this.innerHTML = "continue";
+        clearTimeout(timer);
     } else {
         console.log("Continue the game");
         playing = true;
@@ -139,6 +146,9 @@ function startButtonHandler() {
 function play() {
     console.log("Play the grand game");
     computeNextGen();
+    if (playing) {
+        timer = setTimeout(play, reproductionTime);
+    }
 }
 
 // updates next generation for each cell in array
@@ -223,5 +233,4 @@ function countNeighbors(row, col) {
 }
 
 // start everything
-
 window.onload = initialize;
