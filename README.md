@@ -1,5 +1,9 @@
 # GameOfLife
 
+
+Setup: simply download the repo and open index.html in your favorite browser! 
+I hope you have JavaScript enabled!
+
 Rules to the game of life:
 
 Any live cell with fewer than two live neighbors dies, as if caused by under-population. 
